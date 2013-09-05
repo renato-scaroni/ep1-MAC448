@@ -28,17 +28,6 @@
  */
 
 #define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <netdb.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <time.h>
-#include <unistd.h>
 #include "http_methods.h"
 
 #define LISTENQ 1
@@ -173,11 +162,9 @@ int main (int argc, char **argv) {
          {
             method = DecideMethod(recvline, n);
 
-            printf("%d\n", method);
-
             switch (method)
             {
-              case 1: GET();
+              case 1: GET(connfd, recvline, n);
                       break;
 /*              case 2: POST();
                       break;
@@ -198,7 +185,7 @@ int main (int argc, char **argv) {
          /* Após ter feito toda a troca de informação com o cliente,
           * pode finalizar o processo filho */
          printf("[Uma conexao fechada]\n");
-         exit(0);
+         /*exit(0);*/
       }
       /**** PROCESSO PAI ****/
       /* Se for o pai, a única coisa a ser feita é fechar o socket
