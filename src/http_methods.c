@@ -123,3 +123,43 @@ void GET (int con, char * buffer, int n)
 	}
 
 }
+
+void POST(int con char * buffer, int n)
+{
+	int i;
+        char * path/*, * ext*/;
+        FILE * pFile;
+
+        path = malloc(n*sizeof(char));
+
+        printf("Tratando metodo GET\n");
+        i = 4;
+
+        path[0] = '.';
+
+        while (buffer[i] != ' ' && i < n)
+        {
+                path[i-3] = buffer[i];
+                i++;
+        }
+
+        printf("%s\n", path);
+        pFile = fopen (path , "r");
+        if (pFile == NULL)
+        {
+                printf("%s\n", "Error opening file");
+                write(con, "Page not found", 14);
+        }
+        else
+        {
+                printf("%s\n", "Trying to send stuff");
+                buffer = malloc(128*sizeof(char));
+                while ( ! feof (pFile) )
+                {
+                        if ( fgets (buffer , 100 , pFile) == NULL ) break;
+                        fputs (buffer , stdout);
+                        write(con, buffer, strlen(buffer));
+                }
+                fclose (pFile);
+        }
+}

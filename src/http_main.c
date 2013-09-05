@@ -166,9 +166,9 @@ int main (int argc, char **argv) {
             {
               case 1: GET(connfd, recvline, n);
                       break;
-/*              case 2: POST();
+              case 2: POST(connfd, recvline, n);
                       break;
-              case 3: OPTIONS();
+/*              case 3: OPTIONS();
                       break;
               default:
                     break;  
