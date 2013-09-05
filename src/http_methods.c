@@ -89,15 +89,22 @@ void GetExt (char * file, char * ext, int l)
 
 void SendFile (FILE * pFile, int con)
 {
-	char buffer [100];
+	char *buffer;
+	int size;
 	printf("%s\n", "Trying to send stuff");
 	
+	size = ftell(pFile);
+
+	buffer = malloc(size*sizeof(char));
+
 	while ( !feof (pFile) )
 	{
-		if ( fgets (buffer , 100 , pFile) == NULL ) break;
-		/*fputs (buffer , stdout);*/
-		write(con, buffer, strlen(buffer));
+		fread(buffer, 1, sizeof(buffer), pFile);
+		write(con, buffer, sizeof(buffer));
+		memset(buffer, 0,  sizeof(buffer));
 	}
+
+	free(buffer);
 	fclose (pFile);
 }
 
@@ -235,12 +242,12 @@ void GET (int con, char * buffer, int n)
 void POST(int con, char * buffer, int n)
 {
 	int i;
-	char * path/*, * ext*/;
+	char * path;
 	FILE * pFile;
 
 	path = malloc(n*sizeof(char));
 
-	printf("Tratando metodo GET\n");
+	printf("Tratando metodo POST\n");
 	i = 5;
 
 	path[0] = '.';
@@ -270,40 +277,4 @@ void POST(int con, char * buffer, int n)
 		}
 		fclose (pFile);
 	}
-
-	/*int i;
-	int j;
-        char * path;
-        char postContents[1024];
-        FILE * pFile;
-	
-        path = malloc(n*sizeof(char));
-
-        printf("Tratando metodo POST\n");
-        i = 5;
-
-        path[0] = '.';
-
-        while (buffer[i] != ' ' && i < n)
-        {
-                path[i-4] = buffer[i];
-                i++;
-        }
-        
-        i = 0;
-        j = 0;
-        
-        while(i < 10){
-        	if(buffer[j] == '\n')
-        		i++;
-        	j++;
-        }
-        
-        i = 0;
-        while(buffer[j] != '\0'){
-        	postContents[i++] = buffer[j++];
-        }
-        postContents[i] = '\0';
-
-        printf("Conteudo Post: %s\n", postContents);*/
 }
