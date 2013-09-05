@@ -160,6 +160,7 @@ int main (int argc, char **argv) {
 */
          if((n=read(connfd, recvline, MAXLINE)) > 0)
          {
+            printf("asdasd %s", recvline);
             method = DecideMethod(recvline, n);
 
             switch (method)

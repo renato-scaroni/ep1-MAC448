@@ -189,13 +189,6 @@ void SendResp (struct Response resp, int con)
 char * GetHTTPVer (char * buffer, int n, int i)
 {
 	buffer = &buffer[i+1];
-/*	i = 0;
-
-	while (buffer[i] != ' ' && i < n)
-	{
-		i++;
-	}
-*/
 	buffer[8] = '\0';
 
 	return buffer;
@@ -230,15 +223,87 @@ void GET (int con, char * buffer, int n)
 		printf("%s\n", "Error opening file");
 		status = 404;
 	}
-/*	else
-	{
-		SendFile(pFile, con);
-	}
-*/	resp.method = get;
+	resp.method = get;
 	resp.httpVer = GetHTTPVer(buffer, n, i);
 	resp.status = status;
 	resp.fileExt = ext;
 	resp.file = pFile;
 	resp.filePath = path;
 	SendResp(resp, con);
+}
+
+void POST(int con, char * buffer, int n)
+{
+	int i;
+	char * path/*, * ext*/;
+	FILE * pFile;
+
+	path = malloc(n*sizeof(char));
+
+	printf("Tratando metodo GET\n");
+	i = 5;
+
+	path[0] = '.';
+
+	while (buffer[i] != ' ' && i < n)
+	{
+		path[i-4] = buffer[i];
+		i++;
+	}
+
+	printf("%s\n", path);
+	pFile = fopen (path , "r");
+	if (pFile == NULL) 
+	{
+		printf("%s\n", "Error opening file");
+		write(con, "Page not found", 14);
+	}
+	else
+	{
+		printf("%s\n", "Trying to send stuff");
+		buffer = malloc(128*sizeof(char));
+		while ( ! feof (pFile) )
+		{
+			if ( fgets (buffer , 100 , pFile) == NULL ) break;
+			fputs (buffer , stdout);
+			write(con, buffer, strlen(buffer));
+		}
+		fclose (pFile);
+	}
+
+	/*int i;
+	int j;
+        char * path;
+        char postContents[1024];
+        FILE * pFile;
+	
+        path = malloc(n*sizeof(char));
+
+        printf("Tratando metodo POST\n");
+        i = 5;
+
+        path[0] = '.';
+
+        while (buffer[i] != ' ' && i < n)
+        {
+                path[i-4] = buffer[i];
+                i++;
+        }
+        
+        i = 0;
+        j = 0;
+        
+        while(i < 10){
+        	if(buffer[j] == '\n')
+        		i++;
+        	j++;
+        }
+        
+        i = 0;
+        while(buffer[j] != '\0'){
+        	postContents[i++] = buffer[j++];
+        }
+        postContents[i] = '\0';
+
+        printf("Conteudo Post: %s\n", postContents);*/
 }

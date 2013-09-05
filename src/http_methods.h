@@ -27,10 +27,8 @@ struct Response {
 	char * filePath;
 };
 
-/*char * serverName = "Melhor server do mundo\n";*/
-
 int DecideMethod (char * firstLine, int l);
 
 void GET (int con, char * buffer, int n);
-void POST ();
+void POST (int con, char * buffer, int n);
 void OPTIONS ();
