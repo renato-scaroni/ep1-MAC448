@@ -85,7 +85,7 @@ char * GetExt (char * file, int l)
 
 void GET (int con, char * buffer, int n)
 {
-	int i;
+	int i, j;
 	char * path/*, * ext*/;
 	FILE * pFile;
 
@@ -126,7 +126,7 @@ void GET (int con, char * buffer, int n)
 
 void POST(int con, char * buffer, int n)
 {
-	int i;
+	int i, j;
 	char * path/*, * ext*/;
 	FILE * pFile;
 
