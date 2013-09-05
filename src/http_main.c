@@ -58,6 +58,8 @@ int main (int argc, char **argv) {
 	char	recvline[MAXLINE + 1];
    /* Armazena o tamanho da string lida do cliente */
    ssize_t  n;
+
+   int method;
    
 	if (argc != 2) {
       fprintf(stderr,"Uso: %s <Porta>\n",argv[0]);
@@ -156,14 +158,36 @@ int main (int argc, char **argv) {
          
          /* TODO: É esta parte do código que terá que ser modificada
           * para que este servidor consiga interpretar comandos HTTP */
-         while ((n=read(connfd, recvline, MAXLINE)) > 0) {
+/*         while ((n=read(connfd, recvline, MAXLINE)) > 0) {
             recvline[n]=0;
             printf("[Cliente conectado no processo filho %d enviou:] ",getpid());
+
             if ((fputs(recvline,stdout)) == EOF) {
                perror("fputs :( \n");
                exit(6);
             }
             write(connfd, recvline, strlen(recvline));
+         }
+*/
+         if((n=read(connfd, recvline, MAXLINE)) > 0)
+         {
+            method = DecideMethod(recvline, n);
+
+            printf("%d\n", method);
+
+            switch (method)
+            {
+              case 1: GET();
+                      break;
+/*              case 2: POST();
+                      break;
+              case 3: OPTIONS();
+                      break;
+              default:
+                    break;  
+*/            };
+
+            /*1fputs(recvline[0],stdout);*/
          }
          /* ========================================================= */
          /* ========================================================= */
