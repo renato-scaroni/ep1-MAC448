@@ -168,8 +168,11 @@ int main (int argc, char **argv) {
                       break;
               case 2: POST(connfd, recvline, n);
                       break;
-              case 3: OPTIONS(connfd);
-                      break;            };
+/*              case 3: OPTIONS();
+                      break;
+              default:
+                    break;  
+*/            };
 
             /*1fputs(recvline[0],stdout);*/
          }

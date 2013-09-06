@@ -1,0 +1,10 @@
+MAC 0448 - Programação para Redes de Computadores
+
+André Mesquita Pereira - NUSP: 6879530 
+Renato Scaroni - NUSP:  
+
+- Organização de arquivos:
+
+.src/http_main.c - Uma versão modificada do código de exemplo fornecido
+.src/http_methods.c - Métodos para tratar as requisições (GET, POST, OPTIONS), além de métodos auxiliares
+.src/http_methods.h - Header com imports, defines e definições dos métodos utilizados no arquivo 'http_main.c'
