@@ -8,3 +8,14 @@ Renato Scaroni - NUSP:
 .src/http_main.c - Uma versão modificada do código de exemplo fornecido
 .src/http_methods.c - Métodos para tratar as requisições (GET, POST, OPTIONS), além de métodos auxiliares
 .src/http_methods.h - Header com imports, defines e definições dos métodos utilizados no arquivo 'http_main.c'
+.trace/ - Diretório com traces para teste
+.makefile - Make padrão
+.test.html - Arquivo de teste
+.test2.html - Arquivo de teste
+.test2.png - Arquivo de teste
+.test_post.html - Arquivo de teste
+
+- Uso
+$ make
+$ make clean
+$ ./http_server {porta}
